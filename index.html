@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iran Watch</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%23cc785c'/><text x='12' y='72' font-size='52' font-family='monospace' font-weight='bold' fill='white'>IW</text></svg>" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Iran Watch" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="app">
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="logo-mark">IW</div>
+      <span class="logo-text">Iran Watch</span>
+    </div>
+
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="search" placeholder="Search headlines, sources…" />
+    </div>
+
+    <div class="header-actions">
+      <span class="count-badge" id="countBadge">— articles</span>
+      <div class="status-dot" id="statusDot" title="Feed status"></div>
+      <button class="btn primary" id="refreshBtn">↻ Refresh</button>
+      <button class="btn" id="settingsBtn">⚙ Feeds</button>
+    </div>
+  </header>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="toolbar-sources">
+      <span class="toolbar-label">Source</span>
+      <div class="source-filters" id="sourceFilters">
+        <button class="source-chip active" data-source="all">
+          <span class="dot" style="background:#888"></span>All
+        </button>
+      </div>
+    </div>
+    <div class="toolbar-meta">
+      <span class="toolbar-label">Refreshed</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text-muted)" id="lastRefreshed">—</span>
+    </div>
+  </div>
+
+  <!-- LOADING STATUS -->
+  <div id="loadingStatus" class="loading-status" hidden></div>
+
+  <!-- MAIN FEED -->
+  <main id="main">
+    <div class="state-view" id="emptyState">
+      <span class="big">📡</span>
+      <span>Loading feeds…</span>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Iran Watch · RSS Aggregator</span>
+    <span>Sorted by date · newest first</span>
+  </footer>
+</div>
+
+<!-- SETTINGS PANEL -->
+<div class="settings-overlay" id="settingsOverlay">
+  <div class="settings-panel">
+    <div class="settings-header">
+      <span class="settings-title">Feed Sources</span>
+      <button class="close-btn">✕</button>
+    </div>
+
+    <div>
+      <div class="section-label">Active Feeds</div>
+      <div class="feed-list" id="feedList"></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="section-label">Cache</div>
+      <button class="btn" id="clearCacheBtn" style="align-self:flex-start">🗑 Clear cached articles</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

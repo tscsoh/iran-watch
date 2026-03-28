@@ -1,0 +1,14 @@
+[
+  { "id": "bbc",       "name": "BBC World",       "url": "https://feeds.bbci.co.uk/news/world/rss.xml",            "color": "#cc785c", "enabled": true },
+  { "id": "cbs",       "name": "CBS News",        "url": "https://www.cbsnews.com/latest/rss/world",               "color": "#2471a3", "enabled": true },
+  { "id": "nbc",       "name": "NBC News",        "url": "https://feeds.nbcnews.com/nbcnews/public/world",         "color": "#1a5276", "enabled": true },
+  { "id": "foxnews",   "name": "Fox News",        "url": "https://moxie.foxnews.com/google-publisher/world.xml",   "color": "#d35400", "enabled": true },
+  { "id": "nytimes",   "name": "NY Times",        "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml", "color": "#2c3e50", "enabled": true },
+  { "id": "aljazeera", "name": "Al Jazeera",      "url": "https://www.aljazeera.com/xml/rss/all.xml",              "color": "#8e44ad", "enabled": true },
+  { "id": "bloomberg", "name": "Bloomberg",       "url": "https://feeds.bloomberg.com/markets/news.rss",           "color": "#148f77", "enabled": true },
+  { "id": "ft",        "name": "Financial Times", "url": "https://www.ft.com/rss/home",                            "color": "#f0b429", "enabled": true },
+  { "id": "axios",     "name": "Axios",           "url": "https://api.axios.com/feed/",                            "color": "#6c3483", "enabled": true },
+  { "id": "euronews",  "name": "Euronews",        "url": "https://www.euronews.com/rss",                           "color": "#0097a7", "enabled": true },
+  { "id": "npr",       "name": "NPR",             "url": "https://feeds.npr.org/1004/rss.xml",                     "color": "#5d4037", "enabled": true },
+  { "id": "pbs",       "name": "PBS NewsHour",    "url": "https://www.pbs.org/newshour/feeds/rss/headlines",       "color": "#4a235a", "enabled": true }
+]
