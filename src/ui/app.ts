@@ -82,6 +82,7 @@ async function refreshAll(): Promise<void> {
   saveCachedArticles(allArticles);
   localStorage.setItem(LAST_KEY, new Date().toISOString());
 
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   bar.className = 'progress-bar done';
   setTimeout(() => {
     bar.className = 'progress-bar';

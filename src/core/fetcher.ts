@@ -123,6 +123,7 @@ export async function fetchFeed(feed: Feed): Promise<Article[]> {
         source: feed.id,
         sourceName: feed.name,
         sourceColor: feed.color,
+        sourceLogo: feed.logo,
         title,
         link,
         desc,

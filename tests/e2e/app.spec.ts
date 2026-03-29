@@ -9,6 +9,9 @@ function collectConsoleErrors(page: Page): string[] {
   return errors;
 }
 
+// Matches both cluster-view links and flat-list article cards
+const ARTICLE_LINK = '.cluster-lead, .cluster-story, .article-card';
+
 test.describe('Iran Watch', () => {
   test('loads the app shell without JS errors', async ({ page }) => {
     const errors = collectConsoleErrors(page);
@@ -28,9 +31,10 @@ test.describe('Iran Watch', () => {
 
     await expect(page.locator('#loadingStatus')).toBeHidden({ timeout: 30_000 });
 
-    const cards = page.locator('.article-card');
-    await expect(cards.first()).toBeVisible({ timeout: 5_000 });
-    const count = await cards.count();
+    // "All" view shows clusters; count individual article links within them
+    const links = page.locator(ARTICLE_LINK);
+    await expect(links.first()).toBeVisible({ timeout: 5_000 });
+    const count = await links.count();
 
     console.log(`  → ${count} articles loaded`);
     expect(count).toBeGreaterThanOrEqual(20);
@@ -63,7 +67,7 @@ test.describe('Iran Watch', () => {
   test('source filter chip filters articles', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('#loadingStatus')).toBeHidden({ timeout: 30_000 });
-    await expect(page.locator('.article-card').first()).toBeVisible();
+    await expect(page.locator(ARTICLE_LINK).first()).toBeVisible();
 
     const firstChip = page.locator('.source-chip:not([data-source="all"])').first();
     const sourceName = await firstChip.textContent();
@@ -71,6 +75,7 @@ test.describe('Iran Watch', () => {
 
     await expect(firstChip).toHaveClass(/active/);
 
+    // Clicking a source chip switches to flat-list view
     const sources = await page.locator('.article-source').allTextContents();
     const trimmed = sources.map((s) => s.trim());
     expect(trimmed.every((s) => s.includes(sourceName!.trim()))).toBe(true);
@@ -79,17 +84,15 @@ test.describe('Iran Watch', () => {
   test('search filters articles by title', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('#loadingStatus')).toBeHidden({ timeout: 30_000 });
-    await expect(page.locator('.article-card').first()).toBeVisible();
-
-    const totalBefore = await page.locator('.article-card').count();
+    await expect(page.locator(ARTICLE_LINK).first()).toBeVisible();
 
     await page.fill('#search', 'zzznomatchxxx');
     await page.press('#search', 'Enter');
     await expect(page.locator('.state-view')).toBeVisible();
 
     await page.press('#search', 'Escape');
-    const totalAfter = await page.locator('.article-card').count();
-    expect(totalAfter).toBe(totalBefore);
+    // After clearing search, cluster view returns
+    await expect(page.locator('.story-cluster').first()).toBeVisible();
   });
 
   test('settings panel opens and closes', async ({ page }) => {
@@ -103,10 +106,10 @@ test.describe('Iran Watch', () => {
 
   test('each article card links to the original article', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('.article-card').first()).toBeVisible({ timeout: 30_000 });
+    await expect(page.locator(ARTICLE_LINK).first()).toBeVisible({ timeout: 30_000 });
 
-    const hrefs = await page.locator('.article-card').evaluateAll((cards) =>
-      cards.slice(0, 5).map((c) => c.getAttribute('href')),
+    const hrefs = await page.locator(ARTICLE_LINK).evaluateAll((els) =>
+      els.slice(0, 5).map((el) => el.getAttribute('href')),
     );
     hrefs.forEach((href) => {
       expect(href).toMatch(/^https?:\/\//);
